@@ -1,0 +1,190 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a61d4507cbac742bb1686e9f61e496, type: 3}
+  m_Name: EV01 Vehicle Data
+  m_EditorClassIdentifier: 
+  vehicleName: "EV-01 \u7EAF\u7535\u6837\u8F66"
+  vehicleCode: AUTOTWIN-EV01
+  powertrain: "\u7EAF\u7535\u9A71\u52A8"
+  stateOfCharge: 72
+  rangeKm: 328
+  packVoltage: 394
+  overview:
+  - label: "\u52A8\u529B\u67B6\u6784"
+    value: "\u524D\u7F6E\u5355\u7535\u673A"
+  - label: "\u52A8\u529B\u7535\u6C60"
+    value: 78.0 kWh
+  - label: "\u7535\u538B\u5E73\u53F0"
+    value: 400 V
+  - label: "\u6574\u5907\u8D28\u91CF"
+    value: 1,920 kg
+  parts:
+  - id: VEH-BODY
+    displayName: "\u8F66\u8EAB\u603B\u6210"
+    type: 0
+    typeLabel: "\u8F66\u8EAB\u7ED3\u6784"
+    description: "\u6837\u8F66\u5916\u8986\u76D6\u4EF6\u53CA\u4E58\u5458\u8231\u7ED3\u6784\uFF0C\u4E3A\u5404\u8F66\u95E8\u548C\u524D\u540E\u76D6\u63D0\u4F9B\u5B89\u88C5\u57FA\u51C6\u3002"
+    metrics:
+    - label: "\u8F66\u957F \xD7 \u8F66\u5BBD"
+      value: "4,640 \xD7 1,940 mm"
+    - label: "\u8F74\u8DDD"
+      value: 2,940 mm
+    - label: "\u6574\u5907\u8D28\u91CF"
+      value: 1,920 kg
+  - id: BODY-HOOD-F
+    displayName: "\u524D\u5F15\u64CE\u76D6"
+    type: 3
+    typeLabel: "\u6D3B\u52A8\u8986\u76D6\u4EF6"
+    description: "\u63D0\u4F9B\u524D\u673A\u8231\u68C0\u4FEE\u5165\u53E3\uFF0C\u56F4\u7ED5\u9760\u8FD1\u524D\u98CE\u6321\u7684\u6A2A\u5411\u94F0\u94FE\u5F00\u542F\u3002"
+    metrics:
+    - label: "\u5F00\u542F\u89D2\u5EA6"
+      value: "52\xB0"
+    - label: "\u94F0\u94FE\u4F4D\u7F6E"
+      value: "\u540E\u7F18\u6A2A\u8F74"
+    - label: "\u9762\u677F\u6750\u8D28"
+      value: "\u94DD\u5408\u91D1"
+  - id: BODY-TRUNK-R
+    displayName: "\u540E\u5907\u7BB1\u76D6"
+    type: 4
+    typeLabel: "\u6D3B\u52A8\u8986\u76D6\u4EF6"
+    description: "\u540E\u90E8\u884C\u674E\u8231\u68C0\u4FEE\u4E0E\u88C5\u8F7D\u5165\u53E3\uFF0C\u672C\u9636\u6BB5\u652F\u6301\u67E5\u770B\u53C2\u6570\u3002"
+    metrics:
+    - label: "\u884C\u674E\u8231\u5BB9\u79EF"
+      value: 465 L
+    - label: "\u5B89\u88C5\u4F4D\u7F6E"
+      value: "\u8F66\u5C3E"
+    - label: "\u9762\u677F\u6750\u8D28"
+      value: "\u94DD\u5408\u91D1"
+  - id: EV-BAT-HV
+    displayName: "\u52A8\u529B\u7535\u6C60"
+    type: 5
+    typeLabel: "\u9AD8\u538B\u50A8\u80FD"
+    description: "\u5730\u677F\u4E0B\u65B9\u7684\u52A8\u529B\u7535\u6C60\u5305\uFF0C\u4E3A\u7535\u9A71\u7CFB\u7EDF\u4F9B\u7535\u3002\u5F53\u524D\u6570\u503C\u4E3A\u5C55\u793A\u7528\u5DE5\u51B5\u3002"
+    metrics:
+    - label: "\u989D\u5B9A\u5BB9\u91CF"
+      value: 78.0 kWh
+    - label: "\u8377\u7535\u72B6\u6001"
+      value: 72%
+    - label: "\u7AEF\u7535\u538B"
+      value: 394 V
+    - label: "\u7535\u82AF\u6E29\u5EA6"
+      value: "29.4 \xB0C"
+  - id: EV-MOTOR-F
+    displayName: "\u524D\u9A71\u52A8\u7535\u673A"
+    type: 6
+    typeLabel: "\u524D\u8F74\u7535\u9A71"
+    description: "\u524D\u8231\u7535\u9A71\u603B\u6210\u5305\u542B\u7535\u673A\u3001\u51CF\u901F\u5668\u53CA\u9AD8\u538B\u8FDE\u63A5\u7AEF\u3002"
+    metrics:
+    - label: "\u5CF0\u503C\u529F\u7387"
+      value: 180 kW
+    - label: "\u5CF0\u503C\u626D\u77E9"
+      value: "330 N\xB7m"
+    - label: "\u6BCD\u7EBF\u7535\u538B"
+      value: 400 V
+    - label: "\u7ED5\u7EC4\u6E29\u5EA6"
+      value: "34.0 \xB0C"
+  - id: DOOR-FL
+    displayName: "\u5DE6\u524D\u8F66\u95E8"
+    type: 2
+    typeLabel: "\u6D3B\u52A8\u8986\u76D6\u4EF6"
+    description: "\u94F0\u94FE\u4F4D\u4E8E\u95E8\u677F\u524D\u7F18\uFF0C\u53EF\u901A\u8FC7\u4E0B\u65B9\u5DE5\u5177\u680F\u8054\u52A8\u524D\u8F66\u95E8\u3002"
+    metrics:
+    - label: "\u5B89\u88C5\u4F4D\u7F6E"
+      value: "\u5DE6\u524D"
+    - label: "\u94F0\u94FE\u4F4D\u7F6E"
+      value: "\u95E8\u677F\u524D\u7F18"
+    - label: "\u5F00\u542F\u89C4\u683C"
+      value: "62\xB0"
+  - id: DOOR-FR
+    displayName: "\u53F3\u524D\u8F66\u95E8"
+    type: 2
+    typeLabel: "\u6D3B\u52A8\u8986\u76D6\u4EF6"
+    description: "\u94F0\u94FE\u4F4D\u4E8E\u95E8\u677F\u524D\u7F18\uFF0C\u53EF\u901A\u8FC7\u4E0B\u65B9\u5DE5\u5177\u680F\u8054\u52A8\u524D\u8F66\u95E8\u3002"
+    metrics:
+    - label: "\u5B89\u88C5\u4F4D\u7F6E"
+      value: "\u53F3\u524D"
+    - label: "\u94F0\u94FE\u4F4D\u7F6E"
+      value: "\u95E8\u677F\u524D\u7F18"
+    - label: "\u5F00\u542F\u89C4\u683C"
+      value: "62\xB0"
+  - id: DOOR-RL
+    displayName: "\u5DE6\u540E\u8F66\u95E8"
+    type: 2
+    typeLabel: "\u6D3B\u52A8\u8986\u76D6\u4EF6"
+    description: "\u94F0\u94FE\u4F4D\u4E8E\u95E8\u677F\u524D\u7F18\uFF0C\u672C\u9636\u6BB5\u652F\u6301\u67E5\u770B\u53C2\u6570\u3002"
+    metrics:
+    - label: "\u5B89\u88C5\u4F4D\u7F6E"
+      value: "\u5DE6\u540E"
+    - label: "\u94F0\u94FE\u4F4D\u7F6E"
+      value: "\u95E8\u677F\u524D\u7F18"
+    - label: "\u5F00\u542F\u89C4\u683C"
+      value: "62\xB0"
+  - id: DOOR-RR
+    displayName: "\u53F3\u540E\u8F66\u95E8"
+    type: 2
+    typeLabel: "\u6D3B\u52A8\u8986\u76D6\u4EF6"
+    description: "\u94F0\u94FE\u4F4D\u4E8E\u95E8\u677F\u524D\u7F18\uFF0C\u672C\u9636\u6BB5\u652F\u6301\u67E5\u770B\u53C2\u6570\u3002"
+    metrics:
+    - label: "\u5B89\u88C5\u4F4D\u7F6E"
+      value: "\u53F3\u540E"
+    - label: "\u94F0\u94FE\u4F4D\u7F6E"
+      value: "\u95E8\u677F\u524D\u7F18"
+    - label: "\u5F00\u542F\u89C4\u683C"
+      value: "62\xB0"
+  - id: WHEEL-FL
+    displayName: "\u5DE6\u524D\u8F66\u8F6E"
+    type: 1
+    typeLabel: "\u8F66\u8F6E\u603B\u6210"
+    description: "\u8F6E\u80CE\u4E0E\u8F6E\u8F8B\u56F4\u7ED5\u8F6E\u6BC2\u4E2D\u5FC3\u8F6C\u52A8\uFF0C\u53EF\u5728\u89C6\u56FE\u5185\u5F00\u542F\u56DB\u8F6E\u65CB\u8F6C\u6F14\u793A\u3002"
+    metrics:
+    - label: "\u8F6E\u80CE\u89C4\u683C"
+      value: 235 / 55 R19
+    - label: "\u6807\u51C6\u80CE\u538B"
+      value: 250 kPa
+    - label: "\u8F6E\u80CE\u5916\u5F84"
+      value: 720 mm
+  - id: WHEEL-FR
+    displayName: "\u53F3\u524D\u8F66\u8F6E"
+    type: 1
+    typeLabel: "\u8F66\u8F6E\u603B\u6210"
+    description: "\u8F6E\u80CE\u4E0E\u8F6E\u8F8B\u56F4\u7ED5\u8F6E\u6BC2\u4E2D\u5FC3\u8F6C\u52A8\uFF0C\u53EF\u5728\u89C6\u56FE\u5185\u5F00\u542F\u56DB\u8F6E\u65CB\u8F6C\u6F14\u793A\u3002"
+    metrics:
+    - label: "\u8F6E\u80CE\u89C4\u683C"
+      value: 235 / 55 R19
+    - label: "\u6807\u51C6\u80CE\u538B"
+      value: 250 kPa
+    - label: "\u8F6E\u80CE\u5916\u5F84"
+      value: 720 mm
+  - id: WHEEL-RL
+    displayName: "\u5DE6\u540E\u8F66\u8F6E"
+    type: 1
+    typeLabel: "\u8F66\u8F6E\u603B\u6210"
+    description: "\u8F6E\u80CE\u4E0E\u8F6E\u8F8B\u56F4\u7ED5\u8F6E\u6BC2\u4E2D\u5FC3\u8F6C\u52A8\uFF0C\u53EF\u5728\u89C6\u56FE\u5185\u5F00\u542F\u56DB\u8F6E\u65CB\u8F6C\u6F14\u793A\u3002"
+    metrics:
+    - label: "\u8F6E\u80CE\u89C4\u683C"
+      value: 235 / 55 R19
+    - label: "\u6807\u51C6\u80CE\u538B"
+      value: 250 kPa
+    - label: "\u8F6E\u80CE\u5916\u5F84"
+      value: 720 mm
+  - id: WHEEL-RR
+    displayName: "\u53F3\u540E\u8F66\u8F6E"
+    type: 1
+    typeLabel: "\u8F66\u8F6E\u603B\u6210"
+    description: "\u8F6E\u80CE\u4E0E\u8F6E\u8F8B\u56F4\u7ED5\u8F6E\u6BC2\u4E2D\u5FC3\u8F6C\u52A8\uFF0C\u53EF\u5728\u89C6\u56FE\u5185\u5F00\u542F\u56DB\u8F6E\u65CB\u8F6C\u6F14\u793A\u3002"
+    metrics:
+    - label: "\u8F6E\u80CE\u89C4\u683C"
+      value: 235 / 55 R19
+    - label: "\u6807\u51C6\u80CE\u538B"
+      value: 250 kPa
+    - label: "\u8F6E\u80CE\u5916\u5F84"
+      value: 720 mm
