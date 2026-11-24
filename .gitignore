@@ -1,17 +1,55 @@
+# Unity 缓存及临时文件
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
 /[Ll]ogs/
 /[Uu]serSettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Unity 打包产物
 /[Bb]uild/
 /[Bb]uilds/
-/[Mm]emoryCaptures/
+
+# IDE 配置
 /.vs/
 /.idea/
+/.vscode/
+
+# Visual Studio 自动生成文件
 *.csproj
 *.sln
 *.user
 *.pidb
 *.suo
 *.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# 崩溃日志
 *.crash
+sysinfo.txt
+
+# Blender 自动备份
+*.blend1
+*.blend2
+*.blend[0-9]*
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 系统临时文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 临时资源目录（如果存在）
+/Downloads/
+/Exports/
+/Backups/
+
+# Android 打包产物
+*.apk
+*.aab
