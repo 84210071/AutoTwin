@@ -35,9 +35,9 @@ MonoBehaviour:
     description: "\u6837\u8F66\u5916\u8986\u76D6\u4EF6\u53CA\u4E58\u5458\u8231\u7ED3\u6784\uFF0C\u4E3A\u5404\u8F66\u95E8\u548C\u524D\u540E\u76D6\u63D0\u4F9B\u5B89\u88C5\u57FA\u51C6\u3002"
     metrics:
     - label: "\u8F66\u957F \xD7 \u8F66\u5BBD"
-      value: "4,640 \xD7 1,940 mm"
+      value: "4,786 \xD7 2,018 mm"
     - label: "\u8F74\u8DDD"
-      value: 2,940 mm
+      value: 2,890 mm
     - label: "\u6574\u5907\u8D28\u91CF"
       value: 1,920 kg
   - id: BODY-HOOD-F
@@ -47,7 +47,7 @@ MonoBehaviour:
     description: "\u63D0\u4F9B\u524D\u673A\u8231\u68C0\u4FEE\u5165\u53E3\uFF0C\u56F4\u7ED5\u9760\u8FD1\u524D\u98CE\u6321\u7684\u6A2A\u5411\u94F0\u94FE\u5F00\u542F\u3002"
     metrics:
     - label: "\u5F00\u542F\u89D2\u5EA6"
-      value: "52\xB0"
+      value: "34\xB0"
     - label: "\u94F0\u94FE\u4F4D\u7F6E"
       value: "\u540E\u7F18\u6A2A\u8F74"
     - label: "\u9762\u677F\u6750\u8D28"
@@ -96,26 +96,26 @@ MonoBehaviour:
     displayName: "\u5DE6\u524D\u8F66\u95E8"
     type: 2
     typeLabel: "\u6D3B\u52A8\u8986\u76D6\u4EF6"
-    description: "\u94F0\u94FE\u4F4D\u4E8E\u95E8\u677F\u524D\u7F18\uFF0C\u53EF\u901A\u8FC7\u4E0B\u65B9\u5DE5\u5177\u680F\u8054\u52A8\u524D\u8F66\u95E8\u3002"
+    description: "\u94F0\u94FE\u4F4D\u4E8E\u95E8\u677F\u524D\u7F18\uFF0C\u53EF\u5728\u8F66\u8EAB\u64CD\u4F5C\u83DC\u5355\u4E2D\u8054\u52A8\u524D\u8F66\u95E8\u3002"
     metrics:
     - label: "\u5B89\u88C5\u4F4D\u7F6E"
       value: "\u5DE6\u524D"
     - label: "\u94F0\u94FE\u4F4D\u7F6E"
       value: "\u95E8\u677F\u524D\u7F18"
     - label: "\u5F00\u542F\u89C4\u683C"
-      value: "62\xB0"
+      value: "40\xB0"
   - id: DOOR-FR
     displayName: "\u53F3\u524D\u8F66\u95E8"
     type: 2
     typeLabel: "\u6D3B\u52A8\u8986\u76D6\u4EF6"
-    description: "\u94F0\u94FE\u4F4D\u4E8E\u95E8\u677F\u524D\u7F18\uFF0C\u53EF\u901A\u8FC7\u4E0B\u65B9\u5DE5\u5177\u680F\u8054\u52A8\u524D\u8F66\u95E8\u3002"
+    description: "\u94F0\u94FE\u4F4D\u4E8E\u95E8\u677F\u524D\u7F18\uFF0C\u53EF\u5728\u8F66\u8EAB\u64CD\u4F5C\u83DC\u5355\u4E2D\u8054\u52A8\u524D\u8F66\u95E8\u3002"
     metrics:
     - label: "\u5B89\u88C5\u4F4D\u7F6E"
       value: "\u53F3\u524D"
     - label: "\u94F0\u94FE\u4F4D\u7F6E"
       value: "\u95E8\u677F\u524D\u7F18"
     - label: "\u5F00\u542F\u89C4\u683C"
-      value: "62\xB0"
+      value: "40\xB0"
   - id: DOOR-RL
     displayName: "\u5DE6\u540E\u8F66\u95E8"
     type: 2
@@ -151,7 +151,7 @@ MonoBehaviour:
     - label: "\u6807\u51C6\u80CE\u538B"
       value: 250 kPa
     - label: "\u8F6E\u80CE\u5916\u5F84"
-      value: 720 mm
+      value: 746 mm
   - id: WHEEL-FR
     displayName: "\u53F3\u524D\u8F66\u8F6E"
     type: 1
@@ -163,7 +163,7 @@ MonoBehaviour:
     - label: "\u6807\u51C6\u80CE\u538B"
       value: 250 kPa
     - label: "\u8F6E\u80CE\u5916\u5F84"
-      value: 720 mm
+      value: 746 mm
   - id: WHEEL-RL
     displayName: "\u5DE6\u540E\u8F66\u8F6E"
     type: 1
@@ -175,7 +175,7 @@ MonoBehaviour:
     - label: "\u6807\u51C6\u80CE\u538B"
       value: 250 kPa
     - label: "\u8F6E\u80CE\u5916\u5F84"
-      value: 720 mm
+      value: 746 mm
   - id: WHEEL-RR
     displayName: "\u53F3\u540E\u8F66\u8F6E"
     type: 1
@@ -187,4 +187,4 @@ MonoBehaviour:
     - label: "\u6807\u51C6\u80CE\u538B"
       value: 250 kPa
     - label: "\u8F6E\u80CE\u5916\u5F84"
-      value: 720 mm
+      value: 746 mm

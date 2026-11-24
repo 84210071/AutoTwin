@@ -82,50 +82,5 @@ namespace AutoTwin.Editor
             return item.transform;
         }
 
-        public static Transform Surface(Transform parent, string name, Mesh source, Material material, bool pickable)
-        {
-            var node = Node(parent, name);
-            node.gameObject.AddComponent<MeshFilter>().sharedMesh = source;
-            node.gameObject.AddComponent<MeshRenderer>().sharedMaterial = material;
-            if (pickable)
-            {
-                node.gameObject.layer = VehicleRig.PickingLayer;
-                node.gameObject.AddComponent<MeshCollider>().sharedMesh = source;
-            }
-
-            return node;
-        }
-    }
-
-    internal sealed class SurfaceMesh
-    {
-        private readonly List<Vector3> vertices = new();
-        private readonly List<int> indices = new();
-
-        public void Quad(Vector3 a, Vector3 b, Vector3 c, Vector3 d, Vector3 outward)
-        {
-            Triangle(a, b, c, outward);
-            Triangle(a, c, d, outward);
-        }
-
-        private void Triangle(Vector3 a, Vector3 b, Vector3 c, Vector3 outward)
-        {
-            if (Vector3.Dot(Vector3.Cross(b - a, c - a), outward) < 0f) (b, c) = (c, b);
-            for (int i = 0; i < 3; i++) indices.Add(vertices.Count + i);
-            vertices.Add(a);
-            vertices.Add(b);
-            vertices.Add(c);
-        }
-
-        public Mesh Save(string name, Vector3 origin = default)
-        {
-            var mesh = new Mesh();
-            var shifted = vertices.ConvertAll(point => point - origin);
-            mesh.SetVertices(shifted);
-            mesh.SetTriangles(indices, 0);
-            mesh.RecalculateNormals();
-            mesh.RecalculateBounds();
-            return SceneAssets.Store(mesh, $"{SceneAssets.Generated}/Meshes/{name}.asset");
-        }
     }
 }

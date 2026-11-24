@@ -38,6 +38,8 @@ namespace AutoTwin
             if (vehicle != null && viewport != null) viewport.Clicked -= vehicle.SelectAt;
         }
 
+        public void ResetCamera() => viewport.ResetView();
+
         public void ResetVehicle()
         {
             viewport.ResetView();
@@ -86,8 +88,8 @@ namespace AutoTwin
             SetActive(wheels, vehicle.WheelsSpinning);
             SetActive(doors, vehicle.FrontDoorsOpen);
             SetActive(hood, vehicle.HoodOpen);
-            viewLabel.text = vehicle.PowertrainVisible ? "动力总成 / POWERTRAIN" : "整车外观 / EXTERIOR";
-            powerText.text = vehicle.PowertrainVisible ? "返回外观" : "透视动力总成";
+            viewLabel.text = vehicle.PowertrainVisible ? "EV-01   /   数字孪生" : "EV-01   /   普通展示";
+            powerText.text = vehicle.PowertrainVisible ? "普通展示" : "数字孪生";
             wheelsText.text = vehicle.WheelsSpinning ? "停止车轮" : "旋转车轮";
             doorText.text = vehicle.FrontDoorsOpen ? "关闭前车门" : "打开前车门";
             hoodText.text = vehicle.HoodOpen ? "关闭引擎盖" : "打开引擎盖";
@@ -96,7 +98,7 @@ namespace AutoTwin
         private static void SetActive(Button button, bool active)
         {
             var states = button.colors;
-            states.normalColor = active ? new Color32(24, 62, 81, 255) : new Color32(19, 31, 47, 255);
+            states.normalColor = active ? new Color32(85, 115, 157, 51) : Color.clear;
             button.colors = states;
         }
 

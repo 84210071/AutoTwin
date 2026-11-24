@@ -9,6 +9,8 @@ namespace AutoTwin
     {
         [SerializeField] private VehicleCatalog catalog;
         [SerializeField] private VehiclePart[] parts;
+        [SerializeField] private Material twinShell, twinWheels;
+        [SerializeField] private bool startInTwinMode;
         private readonly Dictionary<string, VehiclePart> bindings = new(StringComparer.Ordinal);
         private readonly Dictionary<string, PartProfile> profiles = new(StringComparer.Ordinal);
         private VehiclePart selected;
@@ -17,6 +19,7 @@ namespace AutoTwin
         public VehicleCatalog Catalog => catalog;
         public PartProfile Selection => selected == null ? null : profiles[selected.Id];
         public bool PowertrainVisible { get; private set; }
+        public bool BatteryAlert { get; private set; }
         public bool FrontDoorsOpen { get; private set; }
         public bool HoodOpen { get; private set; }
         public bool WheelsSpinning { get; private set; }
@@ -31,6 +34,7 @@ namespace AutoTwin
 
             foreach (var profile in catalog.parts) profiles.Add(profile.id, profile);
             foreach (var part in parts) bindings.Add(part.Id, part);
+            PowertrainVisible = startInTwinMode;
             ApplyView();
         }
 
@@ -43,10 +47,10 @@ namespace AutoTwin
         {
             if (!bindings.TryGetValue(id, out var part)) return;
 
-            // 清单可以直接打开相应视图，让内部件和外覆盖件始终可定位。
-            if (part.View != PartView.Always)
+            // 从告警或清单定位内部件时自动打开透明车身。
+            if (part.View == PartView.Powertrain && !PowertrainVisible)
             {
-                PowertrainVisible = part.View == PartView.Powertrain;
+                PowertrainVisible = true;
                 ApplyView();
             }
 
@@ -60,17 +64,29 @@ namespace AutoTwin
         {
             // 同一车辆的碰撞体可能刚刚因动画或视图切换而移动。
             Physics.SyncTransforms();
-            if (Physics.Raycast(ray, out var hit, 40f, 1 << PickingLayer, QueryTriggerInteraction.Ignore))
+            float nearest = float.PositiveInfinity;
+            float nearestInternal = float.PositiveInfinity;
+            VehiclePart candidate = null;
+            VehiclePart internalCandidate = null;
+            foreach (var hit in Physics.RaycastAll(ray, 40f, 1 << PickingLayer, QueryTriggerInteraction.Ignore))
             {
                 var part = hit.collider.GetComponentInParent<VehiclePart>();
-                if (part != null && bindings.TryGetValue(part.Id, out var ownedPart) && part == ownedPart)
+                if (part == null || !bindings.TryGetValue(part.Id, out var ownedPart) || part != ownedPart) continue;
+                if (hit.distance < nearest)
                 {
-                    Select(part.Id);
-                    return;
+                    candidate = part;
+                    nearest = hit.distance;
+                }
+                if (part.View == PartView.Powertrain && hit.distance < nearestInternal)
+                {
+                    internalCandidate = part;
+                    nearestInternal = hit.distance;
                 }
             }
-
-            ClearSelection();
+            // 透视模式下可穿过外壳点击动力部件，车轮仍以最近的实体命中为准。
+            if (PowertrainVisible && candidate?.View == PartView.Exterior && internalCandidate != null) candidate = internalCandidate;
+            if (candidate == null) ClearSelection();
+            else Select(candidate.Id);
         }
 
         public void ClearSelection()
@@ -84,8 +100,29 @@ namespace AutoTwin
         {
             PowertrainVisible = !PowertrainVisible;
             ApplyView();
-            if (selected != null && selected.View != PartView.Always) ClearSelection();
+            if (!PowertrainVisible && selected != null && selected.View == PartView.Powertrain) ClearSelection();
             else Changed?.Invoke();
+        }
+
+        public void SetBatteryAlert(bool active)
+        {
+            if (BatteryAlert == active) return;
+            BatteryAlert = active;
+            if (bindings.TryGetValue(TelemetrySimulation.BatteryPartId, out var battery)) battery.SetAlert(active);
+            if (active && !PowertrainVisible) PowertrainVisible = true;
+            ApplyView();
+            Changed?.Invoke();
+        }
+
+        public bool TryPartAnchor(string id, out Vector3 anchor)
+        {
+            if (bindings.TryGetValue(id, out var part))
+            {
+                anchor = part.Anchor();
+                return true;
+            }
+            anchor = default;
+            return false;
         }
 
         public void ToggleFrontDoors() => SetPanels(!FrontDoorsOpen, HoodOpen);
@@ -93,13 +130,6 @@ namespace AutoTwin
 
         private void SetPanels(bool doors, bool hood)
         {
-            if (PowertrainVisible)
-            {
-                PowertrainVisible = false;
-                ApplyView();
-                if (selected != null && selected.View == PartView.Powertrain) ClearSelection();
-            }
-
             FrontDoorsOpen = doors;
             HoodOpen = hood;
             foreach (var part in parts)
@@ -107,6 +137,7 @@ namespace AutoTwin
                 if (part.ToolbarDoor) part.IsOpen = doors;
                 if (profiles[part.Id].type == PartType.Hood) part.IsOpen = hood;
             }
+            ApplyView();
             Changed?.Invoke();
         }
 
@@ -122,7 +153,7 @@ namespace AutoTwin
 
         public void ResetVehicle()
         {
-            PowertrainVisible = false;
+            PowertrainVisible = startInTwinMode || BatteryAlert;
             ClearSelection();
             ApplyView();
             SetPanels(false, false);
@@ -132,7 +163,12 @@ namespace AutoTwin
         private void ApplyView()
         {
             foreach (var part in parts)
-                part.SetVisible(part.View == PartView.Always || (part.View == PartView.Powertrain) == PowertrainVisible);
+            {
+                bool frontMotor = profiles[part.Id].type == PartType.Motor;
+                part.SetVisible(part.View != PartView.Powertrain || PowertrainVisible || (frontMotor && HoodOpen));
+                if (part.View != PartView.Powertrain)
+                    part.SetDisplayMaterial(part.View == PartView.Always ? twinWheels : twinShell, PowertrainVisible);
+            }
         }
 
 #if UNITY_EDITOR
@@ -140,6 +176,13 @@ namespace AutoTwin
         {
             catalog = source;
             parts = bindings;
+        }
+
+        public void ConfigureTwin(Material shell, Material wheels)
+        {
+            twinShell = shell;
+            twinWheels = wheels;
+            startInTwinMode = true;
         }
 #endif
     }

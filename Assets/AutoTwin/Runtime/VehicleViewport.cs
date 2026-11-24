@@ -12,10 +12,10 @@ namespace AutoTwin
         [SerializeField] private RawImage viewport;
         [SerializeField] private EventSystem eventSystem;
 
-        private static readonly Vector3 DefaultTarget = new(0f, 0.65f, 0f);
-        private const float DefaultYaw = 140f;
+        private static readonly Vector3 DefaultTarget = new(0f, .57f, .02f);
+        private const float DefaultYaw = 134f;
         private const float DefaultPitch = 22f;
-        private const float DefaultDistance = 6.8f;
+        private const float DefaultDistance = 6.02f;
         private const float ClickThreshold = 5f;
 
         private Vector3 target, smoothTarget;
@@ -113,6 +113,14 @@ namespace AutoTwin
             Vector2 uv = Rect.PointToNormalized(rect, point);
             ray = vehicleCamera.ViewportPointToRay(new Vector3(uv.x, uv.y));
             return rect.Contains(point);
+        }
+
+        public bool TryProject(Vector3 worldPosition, out Vector2 localPosition)
+        {
+            Vector3 point = vehicleCamera.WorldToViewportPoint(worldPosition);
+            Rect rect = viewport.rectTransform.rect;
+            localPosition = Vector2.Scale(new Vector2(point.x - .5f, point.y - .5f), rect.size);
+            return point.z > vehicleCamera.nearClipPlane && point.x is >= 0 and <= 1 && point.y is >= 0 and <= 1;
         }
 
         public void Orbit(Vector2 delta)

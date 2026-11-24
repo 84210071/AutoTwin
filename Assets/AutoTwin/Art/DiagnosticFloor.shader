@@ -29,28 +29,21 @@ Shader "AutoTwin/Diagnostic Floor"
                 return 1.0 - saturate(min(cell.x / width.x, cell.y / width.y));
             }
 
-            half Stroke(float value, float center, float width)
-            {
-                return 1 - smoothstep(width, width + max(fwidth(value), .001), abs(value - center));
-            }
-
             half4 Frag(Output input) : SV_Target
             {
                 float2 position = input.positionWS.xz;
-                float radius = length(position);
-                float fade = exp(-radius * radius / 53.0);
-                float inside = 1 - smoothstep(2.78, 2.84, radius);
-                float angle = atan2(position.y, position.x);
-                float ticks = step(.83, frac(angle * 7.64));
-                float rings = Stroke(radius, 2.85, .010) + .45 * Stroke(radius, 2.98, .007) * ticks;
-                float grid = .47 * Grid(position, 1.0) + .21 * Grid(position, .25) * inside;
+                float distanceSquared = dot(position, position);
+                float fade = exp(-distanceSquared * .049);
+                float2 spillPosition = position * float2(.58, .33);
+                float spill = exp(-dot(spillPosition, spillPosition));
+                float2 corePosition = (position - float2(-.15, .32)) * float2(1.28, .71);
+                float core = exp(-dot(corePosition, corePosition));
+                half grid = (.62 * Grid(position, .64) + .15 * Grid(position, 1.28)) * fade;
 
-                // 外围网格衰减到视口背景，保留地面接触阴影。
+                // 不铺设舞台圆环。网格由暗到明，柔和光斑给透视车辆提供落地感。
                 half shadow = MainLightRealtimeShadow(TransformWorldToShadowCoord(input.positionWS));
-                half3 color = half3(.003, .007, .014) + half3(.006, .014, .026) * fade;
-                color += half3(.018, .044, .072) * (grid * fade + inside * .2);
-                color += half3(.018, .129, .201) * rings;
-                color *= lerp(.52, 1, shadow);
+                half3 color = half3(.006, .009, .016) + half3(.008, .015, .039) * spill;
+                color += (half3(.014, .030, .076) * core + half3(.012, .025, .046) * grid) * lerp(.62, 1, shadow);
                 return half4(color, 1);
             }
             ENDHLSL
